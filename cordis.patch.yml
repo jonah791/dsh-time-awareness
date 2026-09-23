@@ -1,0 +1,4 @@
+- insert:
+    - id: time-awareness
+      name: dsh-time-awareness
+      config: {}
