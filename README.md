@@ -1,8 +1,42 @@
+<!--
+  DSH 插件生态公约声明（plugin-ecosystem-convention · 组合优先/声明清晰/兼容优先）
+  purpose: 时间感知：在每个模型请求的末尾附加一行本地时间戳（动态上下文快照，仅在变化时重新记录）
+  inject: ['systemPrompt']
+  tools: （无工具 —— 纯行为插件）
+  runtime: host-only
+  envDeps: 见 README「配置」节
+  boundary: 见 README「设计要点」与「生效判据与回退」节
+  compat: cordis ^4.0.1 / dsh-tools >=0.1.0-rc.6
+-->
 # dsh-time-awareness — 时间感知
+
+<p align="center">
+  <a href="https://github.com/jonah791/dsh-time-awareness"><img src="https://img.shields.io/badge/version-0.1.0-blue" alt="version"></a>
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6" alt="TypeScript">
+  <img src="https://img.shields.io/badge/tests-11%20passed-brightgreen" alt="tests">
+</p>
 
 **唯一作用**：在每个模型请求的末尾附加一行本地时间戳。不夹带任何其他注入。
 
 权威契约见 [docs/semantic.md](docs/semantic.md)。
+
+## 快速开始
+
+**1) 装依赖**（在目标 profile 的 `package.json` 加 link 依赖）：
+
+```jsonc
+"dsh-time-awareness": "link:E:/alice/self-plugins/dsh-time-awareness"
+```
+
+**2) 挂组合**：
+
+```yaml
+- id: dsh-time-awareness
+  name: dsh-time-awareness
+```
+
+**3) 30 秒验证**：任意一轮 → 请求末尾应出现一行**本地时间戳**（仅在变化时重新记录）
 
 ## 为什么需要它
 
@@ -49,3 +83,11 @@
 ## 回退
 
 `plugin_unmount dsh-time-awareness`（或把 `enabled` 置 `false`）——不写盘、无状态，回退无损。
+
+## 测试
+
+```bash
+cd self-plugins/dsh-time-awareness && npm test
+```
+
+**11 条用例**（跑一次得到）。
